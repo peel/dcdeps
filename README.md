@@ -36,7 +36,8 @@ $(R):
 ifndef DCDEPS
 		@echo "DcDeps not available. Start dependencies manually..."
 else
-		@docker-compose up -d $(shell dcdeps $(@))
+
+		@docker-compose up -d $(filter-out $(R),$(shell dcdeps $(@)))		
 endif
 		@sbt "project $(@)" "~re-start --- -Dconfig.resource=dev.conf"
 ```
